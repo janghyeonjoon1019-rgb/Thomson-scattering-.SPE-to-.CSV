@@ -50,7 +50,7 @@ function initializeProfileCanvas() {
 }
 initialize();
 
-// --- Execute file ---
+// --- 파일 처리 ---
 async function handleFileSelect(input) { if (input.files.length) await parseSpeFile(input.files[0]); }
 async function parseSpeFile(file) {
     try {
@@ -273,6 +273,43 @@ saveAvgDataBtn.addEventListener('click', () => {
         if (count > 0) textContent += `${(x + (x+xStep-1))/2},${(y - yFrom + yStep) / yStep},${Math.round(sum / count)}\n`;
     }
     downloadTextFile("cropped_average_data.txt", textContent);
+});
+
+tocsvBtn.addEventListener('click', () => {
+    if (!currentDisplayData) return alert("Load the file first."); // 예외처리
+    const yFrom = parseInt(document.getElementById('rangeYFrom').value); //값 가져오기
+    const yTo = parseInt(document.getElementById('rangeYTo').value);
+    const stepY = parseInt(document.getElementById('stepY').value);
+    if ([rangeYFrom, rangeYTo, stepY].some(isNaN)) return alert("Insert all value of From, To, Step."); //예외처리
+    let csvLines = [];
+    let header = ["Pixel_X"]; //csv 첫 줄 생성 및 y구간 설정
+    let yBins = [];
+    for (let y = rangeYFrom; y < rangeYTo; y += stepY){
+        let endY = Math.min(y + stepY - 1, yTo - 1); //이미지 바깥으로 넘어가지 않게 방지
+        yBins.push({ start: y, end: endY });
+        header.push(`Y_${y}_to_${endY}`);
+    }
+    csvLines.push(header.join(","));
+    for (let x = 0; x < imageWidth; x++) {
+        let rowData = [x]; // 첫 번째 데이터는 x 픽셀 번호
+        // 각 Y 구간별 평균 구하기
+        for (let bin of yBins) {
+            let sum = 0;
+            let count = 0;
+            for (let y = bin.start; y <= bin.end; y++) {
+                // 핵심: 2차원(x, y) 좌표를 1차원 인덱스로 변환하여 값 꺼내기
+                let index = y * imageWidth + x; 
+                sum += currentDisplayData[index];
+                count++;
+            }
+            let avg = sum / count;
+            rowData.push(avg.toFixed(3)); // 소수점 3자리까지 저장
+        }
+        csvLines.push(rowData.join(","));
+    }
+    // 3. 하나의 문자열로 합쳐서 파일 다운로드 (선생님 코드의 함수 재사용)
+    const textContent = csvLines.join("\n");
+    downloadTextFile("spectrum_extracted.csv", textContent);
 });
 
 setPeak1Btn.addEventListener('click', () => settingPeakLine = 1);
