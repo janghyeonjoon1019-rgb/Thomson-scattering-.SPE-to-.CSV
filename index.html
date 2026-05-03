@@ -44,6 +44,16 @@
                 <button id="calculateAndPlotBtn">Average</button>
                 <button id="saveAvgDataBtn" style="display: none;">Save as .csv</button>
             </fieldset>
+            <fieldset>
+                <legend>.SPE to .csv</legend>
+                <p>Set a range of y</p>
+                <div class="to csv">
+                    <span>Y:</span><input type="number" id="rangeYFrom" placeholder="from">
+                    <span>→</span><input type="number" id="rangeYTo" placeholder="to">
+                    <span>step:</span><input type="number" id="stepY" placeholder="step" value="1">
+                </div>
+                <button id="tocsvBtn">Extract</button>
+            </fieldset>
         </div>
         <!-- Right panel -->
         <div class="panel" id="right-panel">
