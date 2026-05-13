@@ -263,7 +263,7 @@ calculateAndPlotBtn.addEventListener('click', () => {
 });
 
 saveAvgDataBtn.addEventListener('click', () => {
-    if (!currentDisplayData) return alert("Load the file first.");
+    if (!currentDisplayData) return alert("Load the file first1.");
     const xFrom = parseInt(cropXFrom.value), xTo = parseInt(cropXTo.value), xStep = parseInt(cropXStep.value), yFrom = parseInt(cropYFrom.value), yTo = parseInt(cropYTo.value), yStep = parseInt(cropYStep.value);
     if ([xFrom, xTo, xStep, yFrom, yTo, yStep].some(isNaN)) return alert("Insert all value of X, Y, Step.");
     let textContent = "";
