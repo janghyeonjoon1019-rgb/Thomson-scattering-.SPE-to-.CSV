@@ -265,7 +265,7 @@ calculateAndPlotBtn.addEventListener('click', () => {
 saveAvgDataBtn.addEventListener('click', () => {
     if (!currentDisplayData) return alert("Load the file first.");
     const xFrom = parseInt(cropXFrom.value), xTo = parseInt(cropXTo.value), xStep = parseInt(cropXStep.value), yFrom = parseInt(cropYFrom.value), yTo = parseInt(cropYTo.value), yStep = parseInt(cropYStep.value);
-    if ([xFrom, xTo, xStep, yFrom, yTo, yStep].some(isNaN)) return alert("Insert all value of From, To, Step.");
+    if ([xFrom, xTo, xStep, yFrom, yTo, yStep].some(isNaN)) return alert("Insert all value of X, Y, Step.");
     let textContent = "";
     for (let y = yFrom; y < yTo; y += yStep) for (let x = xFrom; x < xTo; x += xStep) {
         let sum = 0, count = 0;
@@ -277,8 +277,8 @@ saveAvgDataBtn.addEventListener('click', () => {
 
 tocsvBtn.addEventListener('click', () => {
     if (!currentDisplayData) return alert("Load the file first."); // 예외처리
-    const yFrom = parseInt(document.getElementById('rangeYFrom').value); //값 가져오기
-    const yTo = parseInt(document.getElementById('rangeYTo').value);
+    const rangeYFrom = parseInt(document.getElementById('rangeYFrom').value); //값 가져오기
+    const rangeYTo = parseInt(document.getElementById('rangeYTo').value);
     const stepY = parseInt(document.getElementById('stepY').value);
     if ([rangeYFrom, rangeYTo, stepY].some(isNaN)) return alert("Insert all value of From, To, Step."); //예외처리
     let csvLines = [];
