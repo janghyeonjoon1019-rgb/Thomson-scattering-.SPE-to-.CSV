@@ -276,10 +276,10 @@ saveAvgDataBtn.addEventListener('click', () => {
 });
 
 tocsvBtn.addEventListener('click', () => {
-    if (!currentDisplayData) return alert("Load the file first."); // 예외처리
-    const rangeYFrom = parseInt(document.getElementById('rangeYFrom').value); //값 가져오기
-    const rangeYTo = parseInt(document.getElementById('rangeYTo').value);
-    const stepY = parseInt(document.getElementById('stepY').value);
+    if (!currentDisplayData) return alert("Load the file First."); // 예외처리
+    const rangeYFrom = parseInt(rangeYFrom.value); //값 가져오기
+    const rangeYTo = parseInt(rangeYTo.value);
+    const stepY = parseInt(stepY.value);
     if ([rangeYFrom, rangeYTo, stepY].some(isNaN)) return alert("Insert all value of From, To, Step."); //예외처리
     let csvLines = [];
     let header = ["Pixel_X"]; //csv 첫 줄 생성 및 y구간 설정
